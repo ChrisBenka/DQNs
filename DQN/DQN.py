@@ -7,6 +7,7 @@ import os
 import numpy as np
 import gym
 
+
 class ReplayMemory:	
 
 	def __init__(self,capacity,state_shape):
@@ -49,8 +50,6 @@ class QNetwork(tf.keras.Model):
 		x = self.input_layer(inputs)
 		x = self.fc1(x)
 		x = self.fc2(x)
-		# x = self.fc3(x)
-		# x = self.fc4(x)
 		x = self.fc3(x)
 		return x
 
@@ -144,6 +143,7 @@ class DQNAgent:
 			while True:
 				action = np.argmax(self.q_net(state[None],training=False))
 				next_state,reward,done,_ = env.step(action)
+				env.render()
 				episode_reward += reward
 				if done:
 					print(f"episode: {episode}, episode_reward: {episode_reward}")
